@@ -18,7 +18,7 @@ void Matrix() {
 			}
 		}
 	}
-	cout<<"×îÓÅ½âÎª£º"<<m[1][a]<<endl;
+	cout<<"æœ€ä¼˜è§£ä¸ºï¼š"<<m[1][a]<<endl;
 }
 void Print(int l,int r) {
 	if (l==r) {
@@ -40,8 +40,9 @@ int main() {
 		m[i][i] = 0;
 	}
 	Matrix();
-	cout<<"À¨ºÅ»¯·½°¸Îª£º"; 
+	cout<<"æ‹¬å·åŒ–æ–¹æ¡ˆä¸ºï¼š"; 
 	Print(1,a);
 	return 0;
 }
-
+/* 6 
+30 35 15 5 10 20 25 */
