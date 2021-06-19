@@ -59,7 +59,7 @@ int main() {
 		f.push({value,i});
 	}
 	Haf();
-	cout<<"哈夫曼编码为："; 
+	cout<<"哈夫曼编码为：\n"; 
 	for (int i=1;i<=a;i++) {
 		cout<<str[i-1]<<":";
 		cout<<haf[i]<<endl;
@@ -67,13 +67,6 @@ int main() {
 	return 0;
 }
 /*
-请输入表示各个节点的字符串：
 abcdef
-请依次输入各个节点的权重:
 5 1 3 7 2 10
-哈夫曼编码为：a:00
-b:0110
-c:010
-d:10
-e:0111
-f:11*/
+*/
