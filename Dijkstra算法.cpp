@@ -2,107 +2,99 @@
 using namespace std;
 typedef long long ll;
 const int N = 2e5+10;
-const int inf = 0x3f3f3f3f;
-
-int n,m,k,idx;
-int mp[110][110],dis[110],vis[110],pre[110];
+const int inf = 1e6;
 map<char,int>a;
 map<int,char>b;
-char st,ed;
+int n,m,k,h;
+int f[110][110],d[110],visit[110],p[110];
+char s,l;
 
 void add(int u,int v,int w) {
-    mp[u][v] = min(mp[u][v],w);
+    f[u][v] = min(f[u][v],w);
 }
 
-
-int get(char ch) {
-    if (!a[ch]) {
-        a[ch] = ++idx;
-        b[idx] = ch;
+int g(char t) {
+    if (!a[t]) {
+        a[t] = ++h;
+        b[h] = t;
     }
-    return a[ch]; 
+    return a[t]; 
 }
-
-/**
- * DijkstraËã·¨
- */
+  //Dijkstraç®—æ³•// 
 int dijkstra(int st,int ed) {
-    memset(dis,inf,sizeof dis);
+    memset(d,inf,sizeof d);
     for (int i=1;i<=n;i++) {
-        dis[i] = mp[st][i];
-        if (dis[i] != inf && i != st) {
-            pre[i] = st;
+        d[i] = f[st][i];
+        if (d[i] != inf && i != st) {
+            p[i] = st;
         }
     }
-    vis[st] = 1;
+    visit[st] = 1;
     for (int i=1;i<n;i++) {
 
-        /**
-         * Ñ°ÕÒÎ´±»±ê¼Ç£¬ÇÒµ±Ç°¾àÀëÔ´µã×î½üµÄµãk
-         */
-        int mi = inf, k;
-        for (int j=1;j<=idx;j++) {
-            if (!vis[j] && dis[j] < mi) {
-                mi = dis[j];
+    //å¯»æ‰¾æœªè¢«æ ‡è®°ï¼Œä¸”å½“å‰è·ç¦»æºç‚¹æœ€è¿‘çš„ç‚¹k    
+        int min = inf, k;
+        for (int j=1;j<=h;j++) {
+            if (!visit[j] && d[j] < min) {
+                min = d[j];
                 k = j;
             }
         }
+        //å°†kç‚¹æ ‡è®° 
+        visit[k] = 1;
 
-        /**
-         * ½«kµã±ê¼Ç
-         */
-        vis[k] = 1;
-
-        /**
-         * ¶ÔkµãÏàÁÚµÄ±ß½øÐÐËÉ³Ú²Ù×÷,¼´
-         * ¸üÐÂÔ´µãµ½´ïÃ¿¸öjµãµÄ×î¶Ì¾àÀë
-         */
+        //æ›´æ–°æºç‚¹åˆ°è¾¾æ¯ä¸ªjç‚¹çš„æœ€çŸ­è·ç¦»
         for (int j=1;j<=n;j++) {
-            if (dis[j] > dis[k] + mp[k][j]) {
-                dis[j] = dis[k] + mp[k][j];
-                pre[j] = k;
+            if (d[j] > d[k] + f[k][j]) {
+                d[j] = d[k] + f[k][j];
+                p[j] = k;
             }
         }
     }
-    return dis[ed];
+    return d[ed];
 }
-
-/**
- * ´òÓ¡×î¶ÌÂ·¾¶
- */
-void getPath(int u) {
-    if (get(st) == u) {
-        printf("The shortest path is %c",b[u]);
+//æ‰“å° 
+void Path(int u) {
+    if (g(s) == u) {
+        printf("æœ€çŸ­è·ç¦» %c",b[u]);
         return;
     }
-    getPath(pre[u]);
+    Path(p[u]);
     printf("->%c",b[u]);
 }
 
-void run() {
-	printf("ÊäÈëµãºÍ±ßµÄ¸öÊý\n");
-	scanf("%d %d",&n,&m);
+int main() {
+    cout<<"è¯·è¾“å…¥ç‚¹å’Œè¾¹çš„ä¸ªæ•°"<<endl;
+	cin>>n>>m;
     char u,v;
     int w;
-    memset(mp,inf,sizeof mp);
-    for (int i=1;i<=n;i++) mp[i][i] = 0;
-    printf("ÊäÈëÁ½µãºÍ±ß\n");
+    memset(f,inf,sizeof f);
+    for (int i=1;i<=n;i++) f[i][i] = 0;
+    printf("è¾“å…¥ä¸¤ç‚¹å’Œè¾¹\n");
     for (int i=1;i<=m;i++) {
         scanf(" %c %c %d",&u,&v,&w);
-        add(get(u),get(v),w);
+        add(g(u),g(v),w);
     }
-    scanf(" %c %c",&st,&ed);
-    int res = dijkstra(get(st),get(ed));
+    scanf(" %c %c",&s,&l);
+    int res = dijkstra(g(s),g(l));
     if (res == inf) {
         puts("No path");
-        return;
+        return 0;
     }
-    printf("The shortest distance From %c To %c = %d\n",st,ed,res);
-    getPath(get(ed));
-}
-
-int main() {
-    run();
+    printf("ä»Ž %c åˆ° %c çš„æœ€çŸ­è·ç¦»= %d\n",s,l,res);
+    Path(g(l));
     return 0;
 }
-
+/*8 11
+a b 1
+b d 2
+c a 2
+d c 1
+e d 2
+d f 8
+f e 2
+e g 2
+g f 3
+h f 2
+g h 3
+a h*/
