@@ -34,8 +34,11 @@ int main() {
 		}
 	}
 	cout<<"length:"<<C[la][lb]<<endl;
-	cout<<"¹«¹²×ÓĞòÁĞ£º"; 
+	cout<<"Â¹Â«Â¹Â²Ã—Ã“ÃÃ²ÃÃÂ£Âº"; 
     display(la,lb);
 	return 0;
 }
 
+/*CDBSKD
+DB
+*/
