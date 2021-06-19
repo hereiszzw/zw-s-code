@@ -6,7 +6,7 @@ int **best = new int*[100];    //**best表示整形变量 ，best放最优解
 int **update = new int*[100];   //追踪数组，update标记是否有更新最优解 
 
 print(){
-  
+        cout<<"更新最优check表,有为1,无为0\n"; 
 		for(int i=0;i<n+1;i++){         //输出更新表，update标记是否有更新最优解，=1则表示有更，=0则无
 			for(int j=0;j<=halfTime;j++){
 				cout<<update[i][j]<<" ";
@@ -103,8 +103,6 @@ int main(){
 	beibao(); //背包问题过程               
 	return 0;
 }
-/*
-5
+/*5
 1 5 2 10 3
-*/
-
+*/ 
